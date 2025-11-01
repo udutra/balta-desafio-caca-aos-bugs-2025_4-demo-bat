@@ -1,9 +1,9 @@
 using BugStore.Api;
 using BugStore.Api.Common.Api;
-using BugStore.Api.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddConfiguration();
+builder.AddControllers();
 builder.AddDataContexts();
 builder.AddCrossOrigin();
 builder.AddDocumentation();
@@ -16,5 +16,5 @@ if(app.Environment.IsDevelopment())
     app.ConfigureDevEnvironment();
 
 app.UseCors(ApiConfiguration.CorsPolicyName);
-app.MapEndpoints();
+app.MapControllers();
 app.Run();

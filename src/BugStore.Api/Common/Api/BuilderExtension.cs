@@ -23,12 +23,14 @@ public static class BuilderExtension{
         builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlite(ApiConfiguration.ConnectionString));
     }
 
-    public static void AddServices(this WebApplicationBuilder builder)
-    {
+    public static void AddControllers(this WebApplicationBuilder builder){
+        builder.Services.AddControllers();
+    }
+
+    public static void AddServices(this WebApplicationBuilder builder){
         builder.Services.AddScoped<IHandlerCustomer, CustomerHandler>();
         builder.Services.AddScoped<IHandlerOrder, OrderHandler>();
         builder.Services.AddScoped<IHandlerProduct, ProductHandler>();
-
     }
     public static void AddCrossOrigin(this WebApplicationBuilder builder)
     {

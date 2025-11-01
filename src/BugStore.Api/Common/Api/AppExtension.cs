@@ -6,6 +6,6 @@ public static class AppExtension{
         app.UseSwagger(options => options.OpenApiVersion =
             Microsoft.OpenApi.OpenApiSpecVersion.OpenApi2_0);
         app.UseSwaggerUI();
-        app.MapSwagger().RequireAuthorization();
+        app.UseHttpsRedirection();
     }
 }
