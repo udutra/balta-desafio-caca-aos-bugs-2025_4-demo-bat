@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BugStore.Infrastructure\BugStore.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
