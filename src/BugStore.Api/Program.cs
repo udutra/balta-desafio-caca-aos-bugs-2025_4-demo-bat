@@ -1,4 +1,3 @@
-using BugStore.Api;
 using BugStore.Api.Common.Api;
 
 var builder = WebApplication.CreateBuilder(args);
