@@ -3,7 +3,7 @@ using BugStore.Domain.Interfaces;
 
 namespace BugStore.Infrastructure.Repositories;
 
-public class ProductsRepository : IProductRepository {
+public class ProductRepository : IProductRepository {
     public Task<Product?> GetProductByIdAsync(Guid id, CancellationToken cancellationToken){
         throw new NotImplementedException();
     }

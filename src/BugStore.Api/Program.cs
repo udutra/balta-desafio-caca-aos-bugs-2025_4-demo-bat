@@ -2,12 +2,13 @@ using BugStore.Api.Common.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddConfiguration();
-builder.AddControllers();
 builder.AddDataContexts();
-builder.AddCrossOrigin();
-builder.AddDocumentation();
+builder.AddControllers();
+builder.AddRepositories();
 builder.AddServices();
-
+builder.AddAutoMapperProfiles();
+builder.AddDocumentation();
+builder.AddCrossOrigin();
 
 var app = builder.Build();
 

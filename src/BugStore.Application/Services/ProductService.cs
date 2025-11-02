@@ -3,7 +3,7 @@ using BugStore.Domain.Entities;
 
 namespace BugStore.Application.Services;
 
-public class ProductsService : IProductsService {
+public class ProductService : IProductService {
     public Task<(Product? product, string message)> GetByIdAsync(Guid id, CancellationToken cancellationToken){
         throw new NotImplementedException();
     }
