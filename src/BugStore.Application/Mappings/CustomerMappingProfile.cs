@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BugStore.Application.DTOs.Customers;
+using BugStore.Application.DTOs.Customer;
 using BugStore.Domain.Entities;
 
 namespace BugStore.Application.Mappings;

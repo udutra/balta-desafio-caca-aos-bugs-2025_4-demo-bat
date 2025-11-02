@@ -1,9 +1,10 @@
-﻿using BugStore.Application.Requests.Orders;
-using BugStore.Application.Responses.Orders;
+﻿using BugStore.Application.DTOs;
+using BugStore.Application.DTOs.Order.Requests;
+using BugStore.Domain.Entities;
 
 namespace BugStore.Application.Interfaces;
 
 public interface IOrderService{
-    Task<CreateOrderResponse> CreateOrderAsync(CreateOrderRequest request, CancellationToken cancellationToken);
-    Task<GetOrderByIdResponse> GetOrderByIdAsync(GetOrderByIdRequest request, CancellationToken cancellationToken);
+    Task<Response<Order>> CreateOrderAsync(CreateOrderRequest request, CancellationToken cancellationToken);
+    Task<Response<Order>> GetOrderByIdAsync(GetOrderByIdRequest request, CancellationToken cancellationToken);
 }

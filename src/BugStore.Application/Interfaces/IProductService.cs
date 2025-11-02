@@ -1,11 +1,13 @@
-﻿using BugStore.Domain.Entities;
+﻿using BugStore.Application.DTOs;
+using BugStore.Application.DTOs.Product.Requests;
+using BugStore.Domain.Entities;
 
 namespace BugStore.Application.Interfaces;
 
 public interface IProductService{
-    Task<(Product? product, string message)> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<(List<Product> products, string message)> GetAllAsync(CancellationToken cancellationToken);
-    Task<(Product? product, bool success, string message)> CreateAsync(Product product, CancellationToken cancellationToken);
-    Task<(Product? product, bool success, string message)> UpdateAsync(Product product, CancellationToken cancellationToken);
-    Task<(bool success, string message)> DeleteAsync(Guid id, CancellationToken cancellationToken);
+    Task<Response<Product>> CreateProductAsync(CreateProductRequest request, CancellationToken cancellationToken);
+    Task<Response<Product>> GetProductByIdAsync(GetProductByIdRequest request, CancellationToken cancellationToken);
+    Task<PagedResponse<List<Product>?>> GetAllProductsAsync(GetAllProductsRequest request, CancellationToken cancellationToken);
+    Task<Response<Product>> UpdateProductAsync(UpdateProductRequest request, CancellationToken cancellationToken);
+    Task<Response<Product>> DeleteProductAsync(DeleteProductRequest request, CancellationToken cancellationToken);
 }

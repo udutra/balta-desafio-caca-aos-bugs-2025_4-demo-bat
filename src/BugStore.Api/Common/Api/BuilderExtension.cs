@@ -38,6 +38,8 @@ public static class BuilderExtension{
     public static void AddAutoMapperProfiles(this WebApplicationBuilder builder){
         builder.Services.AddAutoMapper(cfg => {
             cfg.AddProfile<CustomerMappingProfile>();
+            cfg.AddProfile<OrderMappingProfile>();
+            cfg.AddProfile<ProductMappingProfile>();
         });
     }
 

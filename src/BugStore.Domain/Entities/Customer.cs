@@ -23,22 +23,4 @@ public class Customer{
         Phone = phone.Trim();
         BirthDate = birthDate;
     }
-
-    public void Update(string? name, string? email, string? phone, DateTime? birthDate){
-        if (!string.IsNullOrWhiteSpace(name)){
-            Name = name;
-        }
-
-        if (!string.IsNullOrWhiteSpace(email)){
-            Email = email;
-        }
-
-        if (!string.IsNullOrWhiteSpace(phone)){
-            Phone = phone;
-        }
-
-        if (birthDate != null){
-            BirthDate = birthDate.Value;
-        }
-    }
 }

@@ -20,19 +20,15 @@ public class CustomerRepository(AppDbContext context) : ICustomerRepository{
     }
 
     public async Task<Customer?> GetCustomerByEmailAsync(string email, CancellationToken cancellationToken){
-        if (string.IsNullOrWhiteSpace(email))
-            return null;
-
-        return await context.Customers
-            .FirstOrDefaultAsync(c => c.Email == email, cancellationToken);
+        return string.IsNullOrWhiteSpace(email)
+            ? null
+            : await context.Customers.FirstOrDefaultAsync(p => p.Email == email, cancellationToken);
     }
 
     public async Task<Customer?> GetCustomerByPhoneAsync(string phone, CancellationToken cancellationToken){
-        if (string.IsNullOrWhiteSpace(phone))
-            return null;
-
-        return await context.Customers
-            .FirstOrDefaultAsync(c => c.Phone == phone, cancellationToken);
+        return string.IsNullOrWhiteSpace(phone)
+            ? null
+            : await context.Customers.FirstOrDefaultAsync(p => p.Phone == phone, cancellationToken);
     }
 
     public IQueryable<Customer> GetAllCustomers(){
@@ -46,7 +42,6 @@ public class CustomerRepository(AppDbContext context) : ICustomerRepository{
         if (existing is null)
             return 0;
 
-        // Atualiza apenas se algo mudou
         if (existing.Name != customer.Name)
             context.Entry(customer).Property(c => c.Name).IsModified = true;
 
