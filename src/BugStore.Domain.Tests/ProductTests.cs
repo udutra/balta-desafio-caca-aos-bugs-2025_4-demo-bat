@@ -1,4 +1,5 @@
 using BugStore.Domain.Entities;
+using BugStore.Domain.Exceptions;
 
 namespace BugStore.Domain.Tests;
 
@@ -32,9 +33,9 @@ public class ProductTests{
         var slug = "slug";
         var price = 10m;
 
-        var ex = Assert.Throws<ArgumentException>(() => new Product(title, description, slug, price));
+        var ex = Assert.Throws<DomainException>(() => new Product(title, description, slug, price));
 
-        Assert.Equal("title", ex.ParamName);
+        Assert.Equal("O Título não pode ser vazio.", ex.Message);
     }
 
     [Theory]
@@ -46,9 +47,9 @@ public class ProductTests{
         var slug = "slug";
         var price = 10m;
 
-        var ex = Assert.Throws<ArgumentException>(() => new Product(title, description, slug, price));
+        var ex = Assert.Throws<DomainException>(() => new Product(title, description, slug, price));
 
-        Assert.Equal("description", ex.ParamName);
+        Assert.Equal("A descrição não pode ser vazio.", ex.Message);
     }
 
     [Theory]
@@ -60,9 +61,9 @@ public class ProductTests{
         var description = "Desc";
         var price = 10m;
 
-        var ex = Assert.Throws<ArgumentException>(() => new Product(title, description, slug, price));
+        var ex = Assert.Throws<DomainException>(() => new Product(title, description, slug, price));
 
-        Assert.Equal("slug", ex.ParamName);
+        Assert.Equal("O slug não pode ser vazio.", ex.Message);
     }
 
     [Theory]
@@ -75,8 +76,8 @@ public class ProductTests{
         var description = "Desc";
         var slug = "slug";
 
-        var ex = Assert.Throws<ArgumentException>(() => new Product(title, description, slug, price));
-        Assert.Equal("price", ex.ParamName);
+        var ex = Assert.Throws<DomainException>(() => new Product(title, description, slug, price));
+        Assert.Equal("O preço deve ser maior que zero.", ex.Message);
     }
 
     [Fact]

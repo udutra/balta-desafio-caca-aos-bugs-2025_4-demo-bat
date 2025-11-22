@@ -15,6 +15,10 @@ public class OrderRepository(AppDbContext context) : IOrderRepository {
         if (id == Guid.Empty)
             return null;
 
-        return await context.Orders.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+        return await context.Orders
+            .Include(o => o.Customer)
+            .Include(o => o.Lines)
+            .ThenInclude(l => l.Product)
+            .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 }

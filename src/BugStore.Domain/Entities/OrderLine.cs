@@ -1,22 +1,24 @@
+using BugStore.Domain.Exceptions;
+
 namespace BugStore.Domain.Entities;
 
 public class OrderLine{
-    public Guid Id { get; set; }
-    public Guid OrderId { get; set; }
-    public int Quantity { get; set; }
-    public decimal Total { get; set; }
-    public Guid ProductId { get; set; }
-    public Product? Product{ get; set; }
-    public Order? Order { get; set; }
+    public Guid Id { get; private set; }
+    public Guid OrderId { get; private  set; }
+    public int Quantity { get; private set; }
+    public decimal Total { get; private set; }
+    public Guid ProductId { get; private set; }
+    public Product? Product{ get; private set; }
+    public Order? Order { get; private set; }
 
     private OrderLine(){}
 
     public OrderLine(Guid orderId, int quantity, Product product){
         if (quantity <= 0)
-            throw new ArgumentException("Quantidade tem que ser maior que zero.", nameof(quantity));
+            throw new DomainException("Quantidade tem que ser maior que zero.");
 
         if (product == null)
-            throw new ArgumentException("Product não pode ser nullo", nameof(product));
+            throw new DomainException("Product não pode ser nullo");
 
         Id = Guid.CreateVersion7();
         OrderId = orderId;

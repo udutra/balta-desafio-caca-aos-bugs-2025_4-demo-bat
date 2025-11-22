@@ -1,3 +1,4 @@
+using BugStore.Api.Exceptions;
 using BugStore.Application.Interfaces;
 using BugStore.Application.Mappings;
 using BugStore.Application.Services;
@@ -41,6 +42,10 @@ public static class BuilderExtension{
             cfg.AddProfile<OrderMappingProfile>();
             cfg.AddProfile<ProductMappingProfile>();
         });
+    }
+
+    public static void AddMiddleware(this WebApplicationBuilder builder){
+        builder.Services.AddTransient<GlobalExceptionMiddleware>();
     }
 
     public static void AddDocumentation(this WebApplicationBuilder builder){

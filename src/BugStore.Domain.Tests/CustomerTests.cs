@@ -1,4 +1,5 @@
 ﻿using BugStore.Domain.Entities;
+using BugStore.Domain.Exceptions;
 
 namespace BugStore.Domain.Tests;
 
@@ -33,10 +34,10 @@ public class CustomerTests{
         var birth = new DateTime(1991, 3, 14);
 
         // Act
-        var ex = Assert.Throws<ArgumentException>(() => new Customer(nome, email, phone, birth));
+        var ex = Assert.Throws<DomainException>(() => new Customer(nome, email, phone, birth));
 
         // Assert
-        Assert.Equal("name", ex.ParamName);
+        Assert.Equal("O nome não pode ser vazio.", ex.Message);
     }
 
     [Theory]
@@ -49,10 +50,10 @@ public class CustomerTests{
         var birth = new DateTime(1991, 3, 14);
 
         // Act
-        var ex = Assert.Throws<ArgumentException>(() => new Customer(nome, email, phone, birth));
+        var ex = Assert.Throws<DomainException>(() => new Customer(nome, email, phone, birth));
 
         // Assert
-        Assert.Equal("email", ex.ParamName);
+        Assert.Equal("O e-mail não pode ser vazio.", ex.Message);
     }
 
     [Theory]
@@ -65,10 +66,10 @@ public class CustomerTests{
         var birth = new DateTime(1991, 3, 14);
 
         // Act
-        var ex = Assert.Throws<ArgumentException>(() => new Customer(nome, email, phone, birth));
+        var ex = Assert.Throws<DomainException>(() => new Customer(nome, email, phone, birth));
 
         // Assert
-        Assert.Equal("phone", ex.ParamName);
+        Assert.Equal("O telefone não pode ser vazio.", ex.Message);
     }
 
     [Fact]

@@ -34,6 +34,8 @@ public class ProductRepository(AppDbContext context) : IProductRepository {
         if (existing is null)
             return 0;
 
+        context.Products.Attach(product);
+
         if (existing.Title != product.Title)
             context.Entry(product).Property(c => c.Title).IsModified = true;
 
@@ -46,7 +48,6 @@ public class ProductRepository(AppDbContext context) : IProductRepository {
         if (existing.Price != product.Price)
             context.Entry(product).Property(c => c.Price).IsModified = true;
 
-        context.Products.Attach(product);
         return await context.SaveChangesAsync(cancellationToken);
     }
     public async Task<int> DeleteProductAsync(Product product, CancellationToken cancellationToken){

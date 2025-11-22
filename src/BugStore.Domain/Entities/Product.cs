@@ -1,3 +1,5 @@
+using BugStore.Domain.Exceptions;
+
 namespace BugStore.Domain.Entities;
 
 public class Product{
@@ -10,16 +12,16 @@ public class Product{
 
     public Product(string title, string description, string slug, decimal price){
         if (string.IsNullOrWhiteSpace(title))
-            throw new ArgumentException("O Título não pode ser vazio.", nameof(title));
+            throw new DomainException("O Título não pode ser vazio.");
 
         if (string.IsNullOrWhiteSpace(description))
-            throw new ArgumentException("A descrição não pode ser vazio.", nameof(description));
+            throw new DomainException("A descrição não pode ser vazio.");
 
         if (string.IsNullOrWhiteSpace(slug))
-            throw new ArgumentException("O slug não pode ser vazio.", nameof(slug));
+            throw new DomainException("O slug não pode ser vazio.");
 
         if (price <= 0){
-            throw new ArgumentException("O preço deve ser maior que zero.", nameof(price));
+            throw new DomainException("O preço deve ser maior que zero.");
         }
 
         Id = Guid.CreateVersion7();

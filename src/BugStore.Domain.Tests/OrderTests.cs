@@ -1,4 +1,5 @@
 using BugStore.Domain.Entities;
+using BugStore.Domain.Exceptions;
 
 namespace BugStore.Domain.Tests;
 
@@ -38,17 +39,20 @@ public class OrderTests{
         };
 
         // Act
-        var ex = Assert.Throws<ArgumentException>(() => new Order(cliente, linhas));
+        var ex = Assert.Throws<DomainException>(() => new Order(cliente, linhas));
 
         // Assert
-        Assert.Equal("customer", ex.ParamName);
+        Assert.Equal("Cliente não pode ser nullo", ex.Message);
     }
 
     [Fact]
     public void Id_Deve_Ser_Um_GuidV7(){
         // Arrange
         var cliente = new Customer("Cliente", "c@c.com", "111", new DateTime(2000,1,1));
-        var pedido = new Order(cliente, []);
+        var pedido = new Order(cliente, [
+            new OrderLine(Guid.Empty, 3,
+                new Product("P1", "D1", "p1", 5m))
+        ]);
 
         // Act
         var bytes = pedido.Id.ToByteArray();
@@ -65,7 +69,10 @@ public class OrderTests{
 
         // Act
         var t0 = DateTime.UtcNow;
-        var pedido = new Order(cliente, []);
+        var pedido = new Order(cliente, [
+            new OrderLine(Guid.Empty, 3,
+                new Product("P1", "D1", "p1", 5m))
+        ]);
         var t1 = DateTime.UtcNow;
 
         //Assert
@@ -77,7 +84,10 @@ public class OrderTests{
     public void UpdatedAt_Deve_Ser_Nulo_Ao_Criar(){
         // Arrange & Act
         var cliente = new Customer("Cliente", "c@c.com", "111", new DateTime(2000,1,1));
-        var pedido = new Order(cliente, []);
+        var pedido = new Order(cliente, [
+            new OrderLine(Guid.Empty, 3,
+                new Product("P1", "D1", "p1", 5m))
+        ]);
 
         // Assert
         Assert.Null(pedido.UpdatedAt);
@@ -106,7 +116,11 @@ public class OrderTests{
     public void CustomerId_Deve_Corresponder_Ao_Id_Do_Cliente(){
         // Arrange & Act
         var cliente = new Customer("Cliente", "c@c.com", "111", new DateTime(2000,1,1));
-        var pedido = new Order(cliente, []);
+        var pedido = new Order(cliente, [
+            new OrderLine(Guid.Empty, 3,
+                new Product("P1", "D1", "p1", 5m))
+        ]);
+
 
         // Assert
         Assert.Equal(cliente.Id, pedido.CustomerId);

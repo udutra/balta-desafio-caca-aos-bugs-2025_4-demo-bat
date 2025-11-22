@@ -1,3 +1,5 @@
+using BugStore.Domain.Exceptions;
+
 namespace BugStore.Domain.Entities;
 
 public class Order
@@ -13,7 +15,11 @@ public class Order
 
     public Order(Customer customer, List<OrderLine> lines){
         if (customer == null)
-            throw new ArgumentException("Produto não pode ser nullo", nameof(customer));
+            throw new DomainException("Cliente não pode ser nullo");
+
+        if (lines.Count == 0){
+            throw new DomainException("Lista de produtos deve ter no mínimo 1 item.");
+        }
 
         Id = Guid.CreateVersion7();
         CustomerId = customer.Id;

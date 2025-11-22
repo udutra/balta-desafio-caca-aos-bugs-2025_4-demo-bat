@@ -1,4 +1,5 @@
 using BugStore.Domain.Entities;
+using BugStore.Domain.Exceptions;
 
 namespace BugStore.Domain.Tests;
 
@@ -36,10 +37,10 @@ public class OrderLineTests
         var produto = new Product("Produto", "Desc", "produto", 10m);
 
         // Act
-        var ex = Assert.Throws<ArgumentException>(() => new OrderLine(orderId, quantidade, produto));
+        var ex = Assert.Throws<DomainException>(() => new OrderLine(orderId, quantidade, produto));
 
         // Assert
-        Assert.Equal("quantity", ex.ParamName);
+        Assert.Equal("Quantidade tem que ser maior que zero.", ex.Message);
     }
 
     [Fact]
@@ -50,10 +51,10 @@ public class OrderLineTests
         var quantidade = 1;
 
         // Act
-        var ex = Assert.Throws<ArgumentException>(() => new OrderLine(orderId, quantidade, null));
+        var ex = Assert.Throws<DomainException>(() => new OrderLine(orderId, quantidade, null));
 
         // Assert
-        Assert.Equal("product", ex.ParamName);
+        Assert.Equal("Product não pode ser nullo", ex.Message);
     }
 
     [Fact]

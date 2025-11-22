@@ -3,8 +3,7 @@ using BugStore.Application.DTOs.OrderLine;
 
 namespace BugStore.Application.DTOs.Order;
 
-public class OrderDto
-{
+public class OrderDto{
     public Guid Id { get; set; }
     public Guid CustomerId { get; set; }
     public CustomerDto Customer { get; set; } = null!;

@@ -33,7 +33,8 @@ public class ProductService(IProductRepository repository) : IProductService {
         }
     }
 
-    public async Task<Response<Product>> GetProductByIdAsync(GetProductByIdRequest request, CancellationToken cancellationToken){
+    public async Task<Response<Product>> GetProductByIdAsync(GetProductByIdRequest request,
+        CancellationToken cancellationToken){
         try{
             if (request.Id == Guid.Empty)
                 return new Response<Product>(null, 400, "Id informado inválido. ErroCod: PS0005");
@@ -52,10 +53,13 @@ public class ProductService(IProductRepository repository) : IProductService {
                 "Ocorreu um erro ao buscar o produto. ErroCod: PS0008");
         }
     }
-    public async Task<PagedResponse<List<Product>?>> GetAllProductsAsync(GetAllProductsRequest request, CancellationToken cancellationToken){
+
+    public async Task<PagedResponse<List<Product>?>> GetAllProductsAsync(GetAllProductsRequest request,
+        CancellationToken cancellationToken){
         try{
             if (request.PageNumber < 1 || request.PageSize <= 0){
-                return new PagedResponse<List<Product>?>(null,-1, -1, -1, 400,
+                return new PagedResponse<List<Product>?>(null, -1, 400,
+                    request.PageNumber, request.PageSize,
                     "Parâmetros de paginação inválidos. ErroCod: PS0009");
             }
 
@@ -66,8 +70,9 @@ public class ProductService(IProductRepository repository) : IProductService {
                 .Take(request.PageSize)
                 .ToListAsync(cancellationToken);
 
-            return new PagedResponse<List<Product>?>(products, total, request.PageNumber, request.PageSize, 200,
-                total == 0 ? "Nenhum produto cadastrado." : "Lista de produtos retornada com sucesso.");
+            return new PagedResponse<List<Product>?>(products, total, 200,
+                request.PageNumber, request.PageSize, total == 0 ? "Nenhum produto cadastrado." :
+                    "Lista de produtos retornada com sucesso.");
         }
         catch (OperationCanceledException){
             return new PagedResponse<List<Product>?>(null,-1, -1, -1, 400,

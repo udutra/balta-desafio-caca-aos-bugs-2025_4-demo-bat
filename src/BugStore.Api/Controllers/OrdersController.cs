@@ -13,7 +13,7 @@ public class OrdersController(IOrderService service, IMapper mapper) : Controlle
 
     [ProducesResponseType(typeof(OrderDto), 201)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
-    [ProducesResponseType(typeof(ErrorDto), 409)]
+    [ProducesResponseType(typeof(ErrorDto), 404)]
     [ProducesResponseType(typeof(ErrorDto), 500)]
     [HttpPost]
     public async Task<ActionResult<OrderDto>> Create(CreateOrderRequest request, CancellationToken cancellationToken){

@@ -15,12 +15,13 @@ public class CustomersController(ICustomerService service, IMapper mapper) : Con
     [ProducesResponseType(typeof(CustomerDto), 201)]
     [ProducesResponseType(typeof(ErrorDto), 400)]
     [ProducesResponseType(typeof(ErrorDto), 409)]
-    [ProducesResponseType(typeof(ErrorDto), 500)]
+    [ProducesResponseType(typeof(Exception), 500)]
     [HttpPost]
     public async Task<ActionResult<CustomerDto>> Create(CreateCustomerRequest request, CancellationToken cancellationToken){
         var result = await service.CreateCustomerAsync(request, cancellationToken);
 
-        if (!result.IsSuccess) return MapResultToAction(result);
+        if (!result.IsSuccess)
+            return MapResultToAction(result);
 
         var dto = mapper.Map<CustomerDto>(result.Data);
         return CreatedAtAction(nameof(GetById), new { id = dto.Id }, dto);

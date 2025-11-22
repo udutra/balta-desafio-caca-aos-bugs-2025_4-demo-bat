@@ -29,9 +29,6 @@ public class CustomerService(ICustomerRepository repository) : ICustomerService{
         catch (OperationCanceledException){
             return new Response<Customer>(null, 400, "Operação cancelada. ErroCod: CS00002");
         }
-        catch (Exception){
-            return new Response<Customer>(null, 500, "Erro inesperado. ErroCod: CS0004");
-        }
     }
 
     public async Task<Response<Customer>> GetCustomerByIdAsync(GetCustomerByIdRequest request, CancellationToken cancellationToken){

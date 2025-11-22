@@ -42,6 +42,8 @@ public class CustomerRepository(AppDbContext context) : ICustomerRepository{
         if (existing is null)
             return 0;
 
+        context.Customers.Attach(customer);
+
         if (existing.Name != customer.Name)
             context.Entry(customer).Property(c => c.Name).IsModified = true;
 
@@ -54,7 +56,6 @@ public class CustomerRepository(AppDbContext context) : ICustomerRepository{
         if (existing.BirthDate != customer.BirthDate)
             context.Entry(customer).Property(c => c.BirthDate).IsModified = true;
 
-        context.Customers.Attach(customer);
         return await context.SaveChangesAsync(cancellationToken);
     }
 
